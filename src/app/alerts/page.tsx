@@ -13,6 +13,7 @@ import {
 import { Alert, AlertInput, Department, Employee } from '@/lib/types';
 import { AlertCard } from '@/components/AlertCard';
 import { AlertForm } from '@/components/AlertForm';
+import { Modal } from '@/components/Modal';
 import { ErrorBanner } from '@/components/StateBanners';
 
 export default function AlertsPage() {
@@ -66,21 +67,19 @@ export default function AlertsPage() {
             content, filters and channels.
           </p>
         </div>
-        {editing === null && (
-          <button
-            onClick={() => setEditing('new')}
-            className="rounded-md px-4 py-2 text-sm font-medium"
-            style={{ backgroundColor: 'var(--seq-worked)', color: '#ffffff' }}
-          >
-            + New alert
-          </button>
-        )}
+        <button
+          onClick={() => setEditing('new')}
+          className="rounded-md px-4 py-2 text-sm font-medium"
+          style={{ backgroundColor: 'var(--seq-worked)', color: '#ffffff' }}
+        >
+          + New alert
+        </button>
       </header>
 
       {error && <ErrorBanner message={error} />}
 
       {editing !== null && (
-        <div className="mb-6">
+        <Modal onClose={() => setEditing(null)}>
           <AlertForm
             initial={editing === 'new' ? null : toAlertInput(editing)}
             departments={departments}
@@ -88,7 +87,7 @@ export default function AlertsPage() {
             onSave={handleSave}
             onCancel={() => setEditing(null)}
           />
-        </div>
+        </Modal>
       )}
 
       {!alerts && !error && (
