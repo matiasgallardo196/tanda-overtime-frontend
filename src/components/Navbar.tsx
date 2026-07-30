@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 const TABS = [
   { href: '/', label: 'Overtime', isActive: (p: string) => p === '/' || p.startsWith('/employees/') },
   { href: '/clock-compliance', label: 'Clock Compliance', isActive: (p: string) => p.startsWith('/clock-compliance') },
+  { href: '/alerts', label: 'Alerts & Reports', isActive: (p: string) => p.startsWith('/alerts') },
 ];
 
 export function Navbar() {
