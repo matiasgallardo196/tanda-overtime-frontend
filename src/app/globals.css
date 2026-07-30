@@ -1,8 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f9f9f7;
+  --foreground: #0b0b0b;
+  --surface: #fcfcfb;
+  --text-secondary: #52514e;
+  --text-muted: #898781;
+  --border: rgba(11, 11, 11, 0.1);
+  --gridline: #e1e0d9;
+
+  /* status palette (fixed, never themed - dataviz skill) */
+  --status-good: #0ca30c;
+  --status-warning: #fab219;
+  --status-critical: #d03b3b;
+
+  /* sequential blue ramp, used by the hours meter */
+  --seq-track: #e1e0d9;
+  --seq-worked: #2a78d6;
+  --seq-remaining: #9ec5f4;
 }
 
 @theme inline {
@@ -14,13 +29,30 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0d0d0d;
+    --foreground: #ffffff;
+    --surface: #1a1a19;
+    --text-secondary: #c3c2b7;
+    --text-muted: #898781;
+    --border: rgba(255, 255, 255, 0.1);
+    --gridline: #2c2c2a;
+
+    --status-good: #0ca30c;
+    --status-warning: #fab219;
+    --status-critical: #d03b3b;
+
+    --seq-track: #2c2c2a;
+    --seq-worked: #3987e5;
+    --seq-remaining: #184f95;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
 }
