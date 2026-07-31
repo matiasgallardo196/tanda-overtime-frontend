@@ -34,12 +34,21 @@ async function request<T>(
       method: init?.method ?? 'GET',
       headers: init?.body ? { 'Content-Type': 'application/json' } : undefined,
       body: init?.body ? JSON.stringify(init.body) : undefined,
+      // Sends/receives the httpOnly session cookie - required since the
+      // frontend and backend live on different subdomains.
+      credentials: 'include',
     });
   } catch {
     throw new ApiError(
       `Could not connect to the backend at ${API_BASE_URL}. Is it running (npm run start:dev)?`,
       0,
     );
+  }
+
+  if (res.status === 401 && path !== '/auth/login' && typeof window !== 'undefined') {
+    window.location.href = '/login';
+    // Never resolves - the redirect above takes over before callers see this.
+    return new Promise<T>(() => {});
   }
 
   if (!res.ok) {
@@ -53,6 +62,14 @@ async function request<T>(
 
   if (res.status === 204) return undefined as T;
   return res.json();
+}
+
+export function login(username: string, password: string): Promise<{ ok: true }> {
+  return request('/auth/login', { method: 'POST', body: { username, password } });
+}
+
+export function logout(): Promise<{ ok: true }> {
+  return request('/auth/logout', { method: 'POST' });
 }
 
 export function getOvertimeOverview(

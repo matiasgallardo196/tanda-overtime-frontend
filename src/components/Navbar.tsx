@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { logout } from '@/lib/api';
 
 const TABS = [
   { href: '/', label: 'Overtime', isActive: (p: string) => p === '/' || p.startsWith('/employees/') },
@@ -11,6 +12,15 @@ const TABS = [
 
 export function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
+
+  if (pathname === '/login') return null;
+
+  const handleLogout = async () => {
+    await logout().catch(() => {});
+    router.push('/login');
+    router.refresh();
+  };
 
   return (
     <nav
@@ -34,6 +44,13 @@ export function Navbar() {
             </Link>
           );
         })}
+        <button
+          onClick={handleLogout}
+          className="ml-auto text-sm font-medium"
+          style={{ color: 'var(--text-secondary)' }}
+        >
+          Log out
+        </button>
       </div>
     </nav>
   );
