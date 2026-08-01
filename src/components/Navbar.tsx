@@ -7,6 +7,7 @@ import { logout } from '@/lib/api';
 const TABS = [
   { href: '/', label: 'Overtime', isActive: (p: string) => p === '/' || p.startsWith('/employees/') },
   { href: '/clock-compliance', label: 'Clock Compliance', isActive: (p: string) => p.startsWith('/clock-compliance') },
+  { href: '/costs', label: 'Costs & Budget', isActive: (p: string) => p.startsWith('/costs') },
   { href: '/alerts', label: 'Alerts & Reports', isActive: (p: string) => p.startsWith('/alerts') },
 ];
 

@@ -1,12 +1,16 @@
 import {
   Alert,
   AlertInput,
+  BudgetConfig,
+  BudgetInput,
   ClockComplianceEntry,
+  CostsSummary,
   Department,
   Employee,
   OvertimeCheck,
   OvertimeSummary,
   ReportPreview,
+  WeekCostDetail,
 } from './types';
 
 const API_BASE_URL =
@@ -136,4 +140,20 @@ export function sendTestAlert(id: string): Promise<{ sent: true }> {
 
 export function previewAlert(id: string): Promise<ReportPreview> {
   return request(`/alerts/${id}/preview`);
+}
+
+export function getCostsSummary(): Promise<CostsSummary> {
+  return request(`/costs/summary`);
+}
+
+export function getWeekCostDetail(weekStart: string): Promise<WeekCostDetail> {
+  return request(`/costs/week?weekStart=${weekStart}`);
+}
+
+export function getBudget(): Promise<BudgetConfig | null> {
+  return request(`/costs/budget`);
+}
+
+export function updateBudget(input: BudgetInput): Promise<BudgetConfig> {
+  return request(`/costs/budget`, { method: 'PUT', body: input });
 }

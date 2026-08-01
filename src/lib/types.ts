@@ -117,3 +117,83 @@ export interface ReportPreview {
   html: string;
   text: string;
 }
+
+// ---------- Costs & Budget ----------
+
+export interface DepartmentCost {
+  department: string;
+  hours: number;
+  cost: number;
+}
+
+export interface WeeklyCost {
+  weekStart: string;
+  weekEnd: string;
+  hours: number;
+  cost: number;
+  complete: boolean;
+  partial: boolean;
+  byDepartment: DepartmentCost[];
+}
+
+export interface BudgetConfig {
+  totalBudget: number;
+  startDate: string;
+  endDate: string;
+  updatedAt: string;
+}
+
+export type BudgetStatus = 'under' | 'tight' | 'over';
+
+export interface BudgetTracking {
+  spentInPeriod: number;
+  remainingBudget: number;
+  daysRemaining: number;
+  weeksRemaining: number;
+  weeklyCapRemaining: number;
+  runRateWeekly: number;
+  runRateWeeksUsed: number;
+  projectedTotal: number;
+  headroom: number;
+  status: BudgetStatus;
+}
+
+export interface CostsSummary {
+  fyStart: string;
+  fyEnd: string;
+  today: string;
+  fyToDateCost: number;
+  fyToDateHours: number;
+  weeks: WeeklyCost[];
+  departmentTotals: DepartmentCost[];
+  budget: BudgetConfig | null;
+  tracking: BudgetTracking | null;
+}
+
+export interface EmployeeCost {
+  employeeId: number;
+  employeeName: string;
+  hours: number;
+  cost: number;
+}
+
+export interface DailyCost {
+  date: string;
+  hours: number;
+  cost: number;
+}
+
+export interface WeekCostDetail {
+  weekStart: string;
+  weekEnd: string;
+  actualHours: number;
+  actualCost: number;
+  rosterHours: number;
+  rosterCost: number;
+  actualByDepartment: DepartmentCost[];
+  rosterByDepartment: DepartmentCost[];
+  byEmployee: EmployeeCost[];
+  byDay: DailyCost[];
+}
+
+export type BudgetInput = Omit<BudgetConfig, 'updatedAt'>;
