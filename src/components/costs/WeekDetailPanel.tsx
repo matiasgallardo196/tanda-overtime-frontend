@@ -93,6 +93,14 @@ export function WeekDetailPanel({ weekStart }: Props) {
             {money(variance)}
           </div>
         </div>
+        {detail.leaveCost > 0 && (
+          <div>
+            <div style={{ color: 'var(--text-secondary)' }}>Leave (not counted)</div>
+            <div className="text-lg font-bold tabular-nums" style={{ color: 'var(--text-muted)' }}>
+              {money(detail.leaveCost)}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* daily mini bars */}

@@ -58,7 +58,8 @@ export default function CostsPage() {
         <div>
           <h1 className="text-xl font-bold sm:text-2xl">Costs & Budget</h1>
           <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-            Wage cost (no on-costs) per payroll week vs. the fiscal-year budget.
+            Wage cost of worked shifts (no on-costs, excl. leave - same basis as Tanda&apos;s
+            timesheet cost) per payroll week vs. the fiscal-year budget.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
@@ -93,9 +94,9 @@ export default function CostsPage() {
           {/* hero tiles */}
           <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
             <StatTile
-              label={`Spent FY to date (${formatDateDMY(summary.fyStart).slice(0, 5)} onwards)`}
+              label={`Spent FY to date (${formatDateDMY(summary.fyStart).slice(0, 5)} onwards, excl. leave)`}
               value={money(summary.fyToDateCost)}
-              hint={`${summary.fyToDateHours.toFixed(0)} hours worked`}
+              hint={`${summary.fyToDateHours.toFixed(0)} hours worked · + ${money(summary.fyToDateLeaveCost)} leave (apart)`}
             />
             {tracking && summary.budget ? (
               <>

@@ -130,7 +130,10 @@ export interface WeeklyCost {
   weekStart: string;
   weekEnd: string;
   hours: number;
+  /** Worked-shift wage cost, excluding leave - matches Tanda's "Timesheet Cost (exc. leave)". */
   cost: number;
+  /** Cost of approved leave entries in the week, tracked apart. */
+  leaveCost: number;
   complete: boolean;
   partial: boolean;
   byDepartment: DepartmentCost[];
@@ -164,6 +167,7 @@ export interface CostsSummary {
   today: string;
   fyToDateCost: number;
   fyToDateHours: number;
+  fyToDateLeaveCost: number;
   weeks: WeeklyCost[];
   departmentTotals: DepartmentCost[];
   budget: BudgetConfig | null;
@@ -187,7 +191,10 @@ export interface WeekCostDetail {
   weekStart: string;
   weekEnd: string;
   actualHours: number;
+  /** Worked-shift cost, excluding leave - matches Tanda's "Timesheet Cost (exc. leave)". */
   actualCost: number;
+  /** Cost of approved leave entries in the week. */
+  leaveCost: number;
   rosterHours: number;
   rosterCost: number;
   actualByDepartment: DepartmentCost[];
